@@ -36,7 +36,8 @@ def download():
             if validateVideoUrl:
                 url = YouTube(youtubeUrl)
                 video = url.streams.get_highest_resolution()
-                download_folder = str(os.path.join(Path.home(), "Downloads"))
+                download_folder = r"./static/vid_downloaded/"
+                title = video.title
 
                 video.download(download_folder)
                 message = "Video Telah Berhasil Di Download"
@@ -48,7 +49,9 @@ def download():
             message = "Masukakn Link Anda"
             error_type = 0
 
-        return render_template('index.html', error_type=error_type, message = message)
+        return render_template('index.html', error_type=error_type,
+                               message = message,
+                               title=title)
 if __name__ == "__main__":
     app.run(debug=True)
 

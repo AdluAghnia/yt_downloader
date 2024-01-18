@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/shieldz/Documents/codes/yt_downloader/env"
+VIRTUAL_ENV="/data/data/com.termux/files/home/yt_downloader/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

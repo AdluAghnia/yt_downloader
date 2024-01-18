@@ -4,8 +4,8 @@
 {% block content %}
     <h2>YouTube Video Downloader</h2>
     <form action="/download" method="post">
-        {% if mesage is defined and mesage %}
-            {% if errorType is defined and errorType %}
+        {% if message is defined and message %}
+            {% if error_type is defined and error_type %}
                 <div class="alert alert-success">{{ mesage }}</div>
             {% else  %}
                 <div class="alert alert-danger">{{ mesage }}</div>
@@ -15,6 +15,9 @@
             <label for="video_url">Enter YouTube Video Url:</label>
             <input type="text" class="form-control" id="video_url" placeholder="Enter url" name="video_url">
         </div>          
-        <button type="submit" class="btn btn-primary">Download</button>
+        <button type="submit" class="btn btn-primary">Proses</button>
+        {% if error_type == 1 %}
+            <a href="{{ url_for('static', filename='vid_downloaded/' ~ title ~ '.mp4') }}">Download</a>
+        {% endif %}
     </form>
 {% endblock %}

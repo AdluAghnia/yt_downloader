@@ -1,4 +1,4 @@
-#!/home/shieldz/Documents/codes/yt_downloader/env/bin/python3
+#!/data/data/com.termux/files/home/yt_downloader/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
