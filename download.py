@@ -1,15 +1,50 @@
 from pytube import YouTube
+import re
+import string
+import random
 
-def download_video(yt, save_path : str, url : str):
-    """
-    Fungsi ini untuk mendownload video dan memasukannya ke static file
-    """
-    try:
-        yt.streams.filter(file_extension='mp4')
-        stream = yt.streams.get_by_itag(22)
-        stream.download(output_path=save_path)
-    except Exception as e:
-        print(e)
+def generate_random_string():
+    # Define the set of characters from which the string will be composed
+    characters = string.ascii_letters + string.digits
+
+    # Generate a random string of length 5
+    random_string = ''.join(random.choice(characters) for _ in range(5))
+
+    return random_string
+
+class VideoDownload:
+    def __init__(self, link):
+        self.link = link
+        self.message = ''
+        self.error_type = 0
+        self.filename = generate_random_string()+'.mp4'
+        if self.validateVideoUrl():
+            self.url = YouTube(self.link)
+            self.error_type = 1
+        else:
+            self.message = "Link yang anda masukan tidak valid"
+    
+    def validateVideoUrl(self):
+        validateVideoUrl = (
+                    r'(https?://)?(www\.)?'
+                    '(youtube|youtu|youtube-nocookie)\.(com|be)/'
+                    '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})'
+                )
+        validateVideoUrl = re.match(validateVideoUrl, self.link)
+
+        return validateVideoUrl
+
+    def getTitle(self) -> str:
+        return self.url.title
+    
+    def download_video(self):
+        download_folder = "./static/video/"
+        video =  self.url.streams.get_lowest_resolution()
+
+        if video:
+            video.download(download_folder, filename=self.filename)
+        else:
+            print("None")
+
 if __name__ == "__main__":
-    download_video("./statics/vid_downloaded", "https://youtu.be/_xXGj-h4nto?si=AfnvKC-1ZC75Eb5D")
-   
+    print(generate_random_string())

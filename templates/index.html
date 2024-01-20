@@ -15,9 +15,16 @@
             <label for="video_url">Enter YouTube Video Url:</label>
             <input type="text" class="form-control" id="video_url" placeholder="Enter url" name="video_url">
         </div>          
-        <button type="submit" class="btn btn-primary">Proses</button>
-        {% if error_type == 1 %}
-            <a href="{{ url_for('static', filename='vid_downloaded/' ~ title ~ '.mp4') }}">Download</a>
-        {% endif %}
+        
+        <button type="submit" class="btn btn-primary">Proses</button>        
     </form>
+
+    {% if error_type == 1 %}
+        <p style="color: green;">{{ message }}</p>
+        <p>Downloaded Video: {{ title }}</p>
+        <a href="{{ url_for('download_file', filename=filename) }}">Download Video</a>
+    {% elif error_type == 0 %}
+        <p style="color: red;">{{ message }}</p>
+    {% endif %}
+    
 {% endblock %}
